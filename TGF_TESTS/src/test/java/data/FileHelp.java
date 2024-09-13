@@ -1,10 +1,10 @@
 package data;
 
-import org.apache.commons.io.FileUtils;
-
 import static data.DataHelp.storedTexts;
 
 import java.io.File;
+
+import org.apache.commons.io.FileUtils;
 
 public class FileHelp {
 
@@ -29,17 +29,20 @@ public class FileHelp {
             File dir = downloadFolder;
             dir.mkdirs();
             File[] listOfFiles = downloadFolder.listFiles();
-            Boolean found = false;
+            boolean found = false;
             for(File fileX : listOfFiles)
             {
-                if(fileX.getName().equalsIgnoreCase(expectedName))
-                    found = true;{
+                if(fileX.getName().equalsIgnoreCase(expectedName)) {
+					found = true;
+				}{
                     fileX.delete();}
             }
 
-            if(found == true)
-                return "PASS";
-            else return "FAIL";
+            if(found) {
+				return "PASS";
+			} else {
+				return "FAIL";
+			}
         }
         catch(Exception ex)
         {System.out.println(ex.toString()); return  ex.toString();}
@@ -53,7 +56,7 @@ public class FileHelp {
             File dir = folder;
             dir.mkdirs();
             File[] listOfFiles = folder.listFiles();
-            Boolean found = false;
+            boolean found = false;
             for(File fileX : listOfFiles)
             {
                 for(String nameX : storedTexts) {
@@ -65,9 +68,11 @@ public class FileHelp {
                 }
             }
 
-            if(found == true)
-                return "PASS";
-            else return "FAIL";
+            if(found) {
+				return "PASS";
+			} else {
+				return "FAIL";
+			}
         }
         catch(Exception ex)
         {System.out.println(ex.toString()); return  ex.toString();}

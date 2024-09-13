@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class ClassicUser {
 
-  public static HashMap<String, String> elementLocators = new HashMap<String, String>();
+  public static HashMap<String, String> elementLocators = new HashMap<>();
 
   public static void setElements()
   {

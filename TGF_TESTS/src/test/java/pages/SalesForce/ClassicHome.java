@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class ClassicHome {
 
-  public static HashMap<String, String> elementLocators = new HashMap<String, String>();
+  public static HashMap<String, String> elementLocators = new HashMap<>();
 
   public static void setElements()
   {
@@ -25,8 +25,8 @@ public class ClassicHome {
     elementLocators.put("user_detail", "//*[@title='User Detail']");
     elementLocators.put("log_in", "//input[@title='Login']");
     elementLocators.put("Funding_Request_Main_Tab", "//*[contains(@class,'Funding-Request')]");
-  
-    
+
+
   }
 
   public static String getElementSelector(String element_name)

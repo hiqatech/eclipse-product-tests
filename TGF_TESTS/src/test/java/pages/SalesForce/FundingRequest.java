@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class FundingRequest {
 
-    public static HashMap<String, String> elementLocators = new HashMap<String, String>();
+    public static HashMap<String, String> elementLocators = new HashMap<>();
 
     public static void setElements()
     {
@@ -12,7 +12,7 @@ public class FundingRequest {
         elementLocators.put("Allocation_Program_Split_Tab", "//*[contains(@id,'AllocationTab_lbl')]");
         elementLocators.put("Funding_Request_Tab", "//*[contains(@id,'Form:FundingRequest_lbl')]");
         elementLocators.put("UQD_Register_Tab", "//*[contains(@id,'Form:PAAR_UQD_lbl')]");
-        
+
         elementLocators.put("Allocation_Cycle_Allocation", "//select[contains(@id,'allocationCycleSearch')]");
         elementLocators.put("Country_Allocation", "//select[contains(@id,'Allocation_Split:countrySearch')]");
         elementLocators.put("Group_Of_Countries_Allocation", "//select[contains(@id,'Allocation_Split:groupOfCountriesSearch')]");
@@ -26,7 +26,7 @@ public class FundingRequest {
     	elementLocators.put("Tuberculosis_Allocation","//td//span[text()='Tuberculosis']");
     	elementLocators.put("Malaria_Allocation","//td//span[text()='Malaria']");
     	elementLocators.put("RSSH_Allocation","//td//span[text()='RSSH']");
-    	
+
     	elementLocators.put("Save_Allocation","//input[@value='Save']");
     	elementLocators.put("Delete_Allocation","//input[@value='Delete']");
     	elementLocators.put("Reject_Allocation","//input[@value='Reject']");
@@ -34,7 +34,7 @@ public class FundingRequest {
     	elementLocators.put("Attachments_Allocation_Table_Originel_File_Name_Select","//*[@name='Select Original Name']//select");
     	elementLocators.put("Attached_File_Delete_Confirm","//*[@id='openModalDelete']//input[@value='Delete']");
     	elementLocators.put("Attached_File_Delete_Confirm_Close","//*[@id='openModalDelete']//*[@class='close']");
-    	    
+
     	elementLocators.put("Allocation_Cycle_Funding","//select[contains(@id,'frCycleSearch')]");
     	elementLocators.put("Country_Funding","//select[contains(@id,'frCountrySearch')]");
     	elementLocators.put("Group_Of_Countries_Funding","//select[contains(@id,'frGroupOfCountriesSearch')]");
@@ -43,7 +43,7 @@ public class FundingRequest {
     	elementLocators.put("Components_Funding_Malaria_Option","//select[contains(@id,'frComponents')]//option[text()='Malaria']");
     	elementLocators.put("Components_Funding_RRSH_Option","//select[contains(@id,'frComponents')]//option[text()='RSSH']");
     	elementLocators.put("Components_Funding","//select[contains(@id,'frComponents')]");
-        
+
     	elementLocators.put("Search_Funding_Request","//label[normalize-space(.)='Component(s)']/parent::div/following-sibling::div//input[1]");
     	elementLocators.put("Clear_Selection_Funding","//label[normalize-space(.)='Component(s)']/parent::div/following-sibling::div//input[2]");
     	elementLocators.put("New_Funding_Request","//input[@value='New Funding Request']");
@@ -68,7 +68,7 @@ public class FundingRequest {
     	elementLocators.put("RSSH_Popup","//*[@class='custPopupFr' and contains(text(),'select RSSH')]");
     	elementLocators.put("RSSH_Proceed","//input[@value='Proceed']");
     	elementLocators.put("RSSH_Cancel","//input[@value='Cancel']");
-    	
+
     	elementLocators.put("DeleteFRQuestion","//*[text()='You are about to delete a Funding Request including all records and related documents. Do you want to proceed?']");
     	elementLocators.put("DeleteFRConfirm","//*[contains(text(),'delete a Funding Request')]//following-sibling::footer//input[@value='Delete']");
     	elementLocators.put("LastFundingRequestName","//b[contains(text(), 'Funding Request')]/ancestor::div/following-sibling::span/table//tr[last()]//td[2]");
@@ -94,7 +94,7 @@ public class FundingRequest {
     	elementLocators.put("MatchingFunds_HIV_Amount","//td[contains(text(), 'HIV')]//following::td/input");
     	elementLocators.put("MatchingFunds_Malaria_Amount","//td[contains(text(), 'Malaria')]//following::td/input");
     	elementLocators.put("MatchingFunds_TB_Amount","//td[contains(text(), 'Tuberculosis')]//following::td/input");
-    	elementLocators.put("MatchingFunds_RSSH_Amount","//td[contains(text(), 'RSSH')]//following::td/input"); 
+    	elementLocators.put("MatchingFunds_RSSH_Amount","//td[contains(text(), 'RSSH')]//following::td/input");
     	elementLocators.put("Save_Funding_Request","//*[contains(@id,'Form:FundingRequest')]//input[@value='Save']");
     	elementLocators.put("Save_And_Return_Funding_Request","//*[contains(@id,'Form:FundingRequest')]//input[@value='Save & Return']");
     	elementLocators.put("Delete_Funding_Request","//*[contains(@id,'Form:FundingRequest')]//input[@value='Delete']");
@@ -102,7 +102,7 @@ public class FundingRequest {
     	elementLocators.put("Rollback_Funding_Request","//input[@value='Rollback']");
 
         elementLocators.put("FundingRequest", "//*[@class='oneAlohaPage']//iframe");
-      
+
     }
 
     public static String getElementSelector(String element_name)

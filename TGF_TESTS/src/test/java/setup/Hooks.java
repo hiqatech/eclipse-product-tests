@@ -1,19 +1,20 @@
 package setup;
 
 
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
-import org.junit.Assert;
+import static data.DataHelp.getTimeStamp;
+import static selenium.WebActs.stopWebDriver;
+import static selenium.WebHelp.takeScreenShot;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
-import static data.DataHelp.getTimeStamp;
-import static selenium.WebActs.stopWebDriver;
-import static selenium.WebHelp.takeScreenShot;
+import org.junit.Assert;
+
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 
 public class Hooks {
 
@@ -28,8 +29,8 @@ public class Hooks {
     public void setup(Scenario scenario) throws Exception
     {
     	killAllChromeDriver();
-    	
-        this.scenario = scenario;
+
+        Hooks.scenario = scenario;
 
         LocalDateTime dateTime = LocalDateTime.now();
 
@@ -54,8 +55,9 @@ public class Hooks {
         System.setProperty("driverPath",System.getProperty("projectPath") + "\\src\\main\\resources\\webdrivers\\");
         System.setProperty("reportConfigPath",System.getProperty("projectPath") + "\\src\\main\\resources\\report\\extent-config.xml");
 
-        if(wantsToQuit)
-            throw new RuntimeException("Test FAIL : Cucumber wants to quit");
+        if(wantsToQuit) {
+			throw new RuntimeException("Test FAIL : Cucumber wants to quit");
+		}
 
         System.out.println("************************************************************************************");
 
@@ -77,8 +79,9 @@ public class Hooks {
         {
             takeScreenShot(System.getProperty("reportPath") + myScenario + " failed_" + getTimeStamp("YYYY-MM-DD-HH-mm-ss-SSS"));
             System.out.println("Test Failed !");
-        }
-        else System.out.println("Test Passed !");
+        } else {
+			System.out.println("Test Passed !");
+		}
         closeAllDrivers();
         System.out.println("************************************************************************************");
     }
@@ -120,7 +123,7 @@ public class Hooks {
         result = "FAIL " + desc + " caused by : " + extString;
         return result;
     }
-    
+
     public static void killAllChromeDriver() throws IOException {
     	if(System.getProperty("os.name").contains("Windows")) {
             Process process = Runtime. getRuntime(). exec("taskkill /F /IM chromedriver.exe /T");

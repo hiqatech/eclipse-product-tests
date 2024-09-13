@@ -1,7 +1,5 @@
 package data;
 
-import org.apache.commons.io.output.ByteArrayOutputStream;
-
 import java.beans.XMLEncoder;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,27 +12,28 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import org.apache.poi.ss.usermodel.Cell;  
-import org.apache.poi.ss.usermodel.Row;  
-import org.apache.poi.xssf.usermodel.XSSFSheet;  
-import org.apache.poi.xssf.usermodel.XSSFWorkbook; 
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class DataHelp {
-	
+
 	 public static List<String> storedTexts = Arrays.asList("","","","","","","","","","");
-	 static HashMap<String, String> testDataMap = new HashMap<String, String>();
-	 
+	 static HashMap<String, String> testDataMap = new HashMap<>();
+
 	    public static String getTimeStamp(String format){
 	        String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern(format));
 	        return timeStamp;
 	    }
-	
+
 	public static String readTestData(String featureFileName, String sheetName, String testId){
 		try {
 	        File file = new File(System.getProperty("user.dir") + "\\src\\main\\resources\\templates\\" + featureFileName +"\\"+ featureFileName + ".xlsx");   //creating a new file instance
 	        FileInputStream fis = new FileInputStream(file);
 	        	XSSFWorkbook wb = new XSSFWorkbook(fis);
-				XSSFSheet sh = wb.getSheet(sheetName);     
+				XSSFSheet sh = wb.getSheet(sheetName);
 				Row headers = sh.getRow(0);
 				int rown = Integer.valueOf(testId)+1;
 				Row testRow = sh.getRow(1);
@@ -49,21 +48,21 @@ public class DataHelp {
 		            	value = String.valueOf(valueCell.getNumericCellValue());break;
 		            case STRING:
 		            	value = valueCell.getStringCellValue().trim().toString();break;
-			           
-		        }	    
-				    testDataMap.put(key, value); 
+
+		        }
+				    testDataMap.put(key, value);
 				   }
-			
+
 	        return "PASS : TestData = " + printMap(testDataMap);
 		}
 	    catch(Exception ex)
 	    {System.out.println(ex.toString()); return  ex.toString();}
 	}
-	
+
 	public static String getTestData(String key){
 		return testDataMap.get(key);
 	}
-   
+
 
     public static String prepText(String text){
         try
@@ -71,8 +70,9 @@ public class DataHelp {
             String extension = "ext";
             String addition = "add";
 
-            if(text.contains("TimeStamp"))
-                text = text.replace("+TimeStamp","-" + getTimeStamp("YYYY-MM-DD-HH-mm-ss-SSS"));
+            if(text.contains("TimeStamp")) {
+				text = text.replace("+TimeStamp","-" + getTimeStamp("YYYY-MM-DD-HH-mm-ss-SSS"));
+			}
 
             if(text.contains("+Text"))
             {
@@ -97,10 +97,12 @@ public class DataHelp {
                 text = storedTexts.get(index);
             }
 
-            if(!(addition.equalsIgnoreCase("add")))
-                text = text + addition;
-            if(!(extension.equalsIgnoreCase("ext")))
-                text = text + extension;
+            if(!(addition.equalsIgnoreCase("add"))) {
+				text = text + addition;
+			}
+            if(!(extension.equalsIgnoreCase("ext"))) {
+				text = text + extension;
+			}
 
             return text;
         }
@@ -152,8 +154,9 @@ public class DataHelp {
             sb.append(entry.getValue());
             sb.append('"');
 
-            if(iter.hasNext())
-                sb.append(',').append(' ');
+            if(iter.hasNext()) {
+				sb.append(',').append(' ');
+			}
         }
 
         return(sb.toString());
@@ -167,7 +170,7 @@ public class DataHelp {
 
         return bos.toString();
     }
-    
+
     public static String hashMapToString(HashMap map){
     ByteArrayOutputStream bos = new ByteArrayOutputStream();
     XMLEncoder xmlEncoder = new XMLEncoder(bos);
@@ -178,17 +181,18 @@ public class DataHelp {
 
     return serializedMap;
 	}
-    
+
     public static boolean onlyDigits(String str){
         for (int i = 0; i < str.length(); i++) {
             if (Character.isDigit(str.charAt(i))) {
                 return true;
-            }
-            else return false;
+            } else {
+				return false;
+			}
         }
         return false;
     }
-    
+
     public static boolean isValidEmailAddress(String email) {
         String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
         java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);

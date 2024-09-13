@@ -7,14 +7,14 @@ import data.DataHelp;
 import data.FileHelp;
 import setup.AllProducts;
 import setup.AllURLs;
-import setup.Hooks;
 
 public class WebActs extends WebHelp {
 
     public static void startWebDriver(String driver) {
-        
-        if(driver.contains("default"))
-            driver = System.getProperty("runDriver");
+
+        if(driver.contains("default")) {
+			driver = System.getProperty("runDriver");
+		}
        AssertExecutedStep( startMyWebDriver(driver) + " ,,, : " + "I start the Webdriver with the " + driver + " browser");
     }
 
@@ -27,8 +27,9 @@ public class WebActs extends WebHelp {
     }
 
     public static void navigateToUrl(String url) {
-        if(url.equalsIgnoreCase("app_home"))
-            url = AllURLs.getProductURL();
+        if(url.equalsIgnoreCase("app_home")) {
+			url = AllURLs.getProductURL();
+		}
         AssertExecutedStep( navigateTo(url) + " ,,, : " + "I navigate to the " + url + " URL");
     }
 
@@ -50,31 +51,34 @@ public class WebActs extends WebHelp {
         AssertExecutedStep( switchToWindow(windowNumber) + " ,,, : " + "I switch to the " + windowNumber + " window");
     }
 
-    public static void switchToContent(String frameName) { 
+    public static void switchToContent(String frameName) {
         AssertExecutedStep( switchToFrame(AllProducts.getElementSelector(frameName)) + " ,,, : " + "I switch to the "  + frameName + " content");
     }
 
-    public static String waitForElementToAppear(String elementName) {   	
+    public static String waitForElementToAppear(String elementName) {
         return waitToAppear(AllProducts.getElementSelector(elementName)) + " ,,, : Visibility of element " + elementName;
     }
 
     public static String waitForElementToDisappear(String elementName) {
         return waitToDisappear(AllProducts.getElementSelector(elementName)) + " ,,, : UnVisibility of element " + elementName;
     }
-    
+
     public static String checkTheElementVisibility(String elementName) {
     	return checkElementVisibility(AllProducts.getElementSelector(elementName)) + " ,,, : UnVisibility of element " + elementName;
     }
 
     public static void actTheElement(String act, String elementName) {
-    	VerifyExecutedStep(waitForElementToAppear(elementName));	
-        if (elementName.contains("alert"))
-            AssertExecutedStep( handleAlert(act) + " ,,, : I " + act + " the alert");
-        else if (elementName.contains("CheckBox"))
-            AssertExecutedStep( checkBox(act, AllProducts.getElementSelector(elementName)) + " ,,, : I " + act + " the " + elementName);   
-        else
-            AssertExecutedStep( safeAct(act, AllProducts.getElementSelector(elementName)) + " ,,, : I " + act + " the " + elementName);
-        if(elementName.contains("Tab") || elementName.contains("Search") )  waitSomeSecs("7",elementName);
+    	VerifyExecutedStep(waitForElementToAppear(elementName));
+        if (elementName.contains("alert")) {
+			AssertExecutedStep( handleAlert(act) + " ,,, : I " + act + " the alert");
+		} else if (elementName.contains("CheckBox")) {
+			AssertExecutedStep( checkBox(act, AllProducts.getElementSelector(elementName)) + " ,,, : I " + act + " the " + elementName);
+		} else {
+			AssertExecutedStep( safeAct(act, AllProducts.getElementSelector(elementName)) + " ,,, : I " + act + " the " + elementName);
+		}
+        if(elementName.contains("Tab") || elementName.contains("Search") ) {
+			waitSomeSecs("7",elementName);
+		}
     }
 
     public static void browserAction(String act) {
@@ -87,31 +91,36 @@ public class WebActs extends WebHelp {
 
     public static void elementStatusShouldBe(String elementName, String status) {
     	VerifyExecutedStep(waitForElementToAppear(elementName));
-        if (status.equalsIgnoreCase("SELECTED"))
-            AssertExecutedStep( isSelected(AllProducts.getElementSelector(elementName), status) + " ,,, : " + "The " + elementName + " status should be " + status);
-        else if (status.equalsIgnoreCase("CHECKED"))
-            AssertExecutedStep( isChecked(AllProducts.getElementSelector(elementName), status) + " ,,, : " + "The " + elementName + " status should be " + status);
-        else AssertExecutedStep( " status is not a implemented to assert");
+        if (status.equalsIgnoreCase("SELECTED")) {
+			AssertExecutedStep( isSelected(AllProducts.getElementSelector(elementName), status) + " ,,, : " + "The " + elementName + " status should be " + status);
+		} else if (status.equalsIgnoreCase("CHECKED")) {
+			AssertExecutedStep( isChecked(AllProducts.getElementSelector(elementName), status) + " ,,, : " + "The " + elementName + " status should be " + status);
+		} else {
+			AssertExecutedStep( " status is not a implemented to assert");
+		}
     }
 
     public static void checkDownloads(String expectedFileName) {
-        if (expectedFileName.contains("Text"))
-            expectedFileName = DataHelp.prepText(expectedFileName);
+        if (expectedFileName.contains("Text")) {
+			expectedFileName = DataHelp.prepText(expectedFileName);
+		}
         AssertExecutedStep( FileHelp.checkDownLoad(expectedFileName) + " ,,, : " + "I should find the " + expectedFileName + " file ind the " + System.getProperty("downloadPath") + " folder");
     }
 
-    public static void uploadTheFile(String fileName, String elementName) {  	
+    public static void uploadTheFile(String fileName, String elementName) {
     	VerifyExecutedStep(waitForElementToAppear(elementName));
-        if (fileName.contains("Text"))
-            fileName = DataHelp.storedTexts.get(Integer.parseInt(fileName.replaceAll("\\D+", "")));
+        if (fileName.contains("Text")) {
+			fileName = DataHelp.storedTexts.get(Integer.parseInt(fileName.replaceAll("\\D+", "")));
+		}
         AssertExecutedStep( uploadFile(AllProducts.getElementSelector(elementName), fileName) + " ,,, : " + "I upload the " + fileName + " file to the " + elementName);
     }
 
-    public static void uploadFileWithKey(String fileName, String elementName) {	
+    public static void uploadFileWithKey(String fileName, String elementName) {
     	VerifyExecutedStep(waitForElementToAppear(elementName));
         actTheElement("select", elementName);
-        if (fileName.contains("Text"))
-            fileName = DataHelp.getStoredText(fileName);
+        if (fileName.contains("Text")) {
+			fileName = DataHelp.getStoredText(fileName);
+		}
         AssertExecutedStep( uploadFileWithKey(fileName) + " ,,, : " + "I upload the " + fileName + " file to the " + elementName);
     }
 
@@ -121,17 +130,19 @@ public class WebActs extends WebHelp {
     }
 
     public static void deleteFile(String fileName, String path) {
-        if(path.contains("Downloads"))
-            path = System.getProperty("downloadPath");
-        else if(path.contains("Files"))
-            path = System.getProperty("filePath");
+        if(path.contains("Downloads")) {
+			path = System.getProperty("downloadPath");
+		} else if(path.contains("Files")) {
+			path = System.getProperty("filePath");
+		}
 
         AssertExecutedStep( FileHelp.deleteFile(fileName, path) + " ,,, : " + "I delete the " + fileName);
     }
 
-    public static void selectFromTheDropDownBy(String text, String attribute, String elementName) { 	
-    	if(text.contains("$")) 
-    		text = DataHelp.getTestData(text.replace("$", ""));
+    public static void selectFromTheDropDownBy(String text, String attribute, String elementName) {
+    	if(text.contains("$")) {
+			text = DataHelp.getTestData(text.replace("$", ""));
+		}
     	VerifyExecutedStep(waitForElementToAppear(elementName));
     	AssertExecutedStep( selectFromDropDownBy(AllProducts.getElementSelector(elementName), attribute, text) + " ,,, : " + "I select the " + text + " " + attribute + " from the " + elementName);
     }
@@ -141,7 +152,7 @@ public class WebActs extends WebHelp {
     	AssertExecutedStep( clickFromDropDownBy(AllProducts.getElementSelector(elementName), optionSelector, text, attribute) + " ,,, : " + "I select the " + text + " from the " + elementName);
     }
 
-    public static void selectDateInDatePicker(String date, String elementName, String daySelector, String doneButtonSelector) { 	
+    public static void selectDateInDatePicker(String date, String elementName, String daySelector, String doneButtonSelector) {
     	VerifyExecutedStep(waitForElementToAppear(elementName));
     	String result = safeAct("select", AllProducts.getElementSelector(elementName)) + " ,,, : " + "I select the " + elementName;
 
@@ -153,90 +164,106 @@ public class WebActs extends WebHelp {
     }
 
     public static void intoTheElement(String act, String entry, String elementName) {
-    	if(entry.contains("$")) 
-    		entry = DataHelp.getTestData(entry.replace("$", ""));
-    	if (entry.contains("CurrentDate"))
-            entry = DataHelp.getDynamicDate(entry, "yyyy-MM-dd");
-        else if (entry.contains("TimeStamp"))
-            entry = DataHelp.getTimeStamp("yyyy-MM-dd-hh-mm-ss");
-        else if (entry.contains("Text"))
-            entry = DataHelp.getStoredText(entry);
-        else if (elementName.contains("date")) {
+    	if(entry.contains("$")) {
+			entry = DataHelp.getTestData(entry.replace("$", ""));
+		}
+    	if (entry.contains("CurrentDate")) {
+			entry = DataHelp.getDynamicDate(entry, "yyyy-MM-dd");
+		} else if (entry.contains("TimeStamp")) {
+			entry = DataHelp.getTimeStamp("yyyy-MM-dd-hh-mm-ss");
+		} else if (entry.contains("Text")) {
+			entry = DataHelp.getStoredText(entry);
+		} else if (elementName.contains("date")) {
             safeAct("select", AllProducts.getElementSelector(elementName));
-            for (int i = 0; i < 10; i++)
-                keyActions("ArrowLeft");
+            for (int i = 0; i < 10; i++) {
+				keyActions("ArrowLeft");
+			}
         }
         entry = entry.replace("-", "").replace("/", "");
-        
+
         VerifyExecutedStep(waitForElementToAppear(elementName));
         AssertExecutedStep( safeInto(act, AllProducts.getElementSelector(elementName), entry) + " ,,, : " + "I " + act + " the " + entry + " into the " + elementName);
     }
 
-    public static void shouldSeeTheElement(String elementName) { 	
+    public static void shouldSeeTheElement(String elementName) {
         AssertExecutedStep( waitToAppear(AllProducts.getElementSelector(elementName)) + " ,,, : The " + elementName + " should be visible with selector " + AllProducts.getElementSelector(elementName));
     }
 
-    public static void shouldNotSeeTheElement(String elementName) {  	
+    public static void shouldNotSeeTheElement(String elementName) {
         AssertExecutedStep( waitToDisappear(AllProducts.getElementSelector(elementName)) + " ,,, : The " + elementName + " should not be visible with selector " + AllProducts.getElementSelector(elementName));
     }
 
     public static void elementTextShouldBe(String elementName, String attribute, String condition, String text) {
     	attribute = attribute.toUpperCase();
-        if (text.contains("Text"))
-            DataHelp.getStoredText(text);
+        if (text.contains("Text")) {
+			DataHelp.getStoredText(text);
+		}
         String currentText = "null";
-        
-        
-        VerifyExecutedStep(waitForElementToAppear(elementName));
-        if (attribute.equalsIgnoreCase("TEXT"))
-            currentText = readTextOfWebElement(AllProducts.getElementSelector(elementName));
-        else if (attribute.equalsIgnoreCase("VALUE") || attribute.equalsIgnoreCase("HREF") || attribute.equalsIgnoreCase("PLACEHOLDER"))
-            currentText = readAttributeOfWebElement(AllProducts.getElementSelector(elementName), attribute.toLowerCase());
-        else AssertExecutedStep( "FAIL" + " : " + "The " + attribute + " attribute test of element has not been implemented");
 
-        if (!text.contains("http"))
-            text = DataHelp.prepText(text);
+
+        VerifyExecutedStep(waitForElementToAppear(elementName));
+        if (attribute.equalsIgnoreCase("TEXT")) {
+			currentText = readTextOfWebElement(AllProducts.getElementSelector(elementName));
+		} else if (attribute.equalsIgnoreCase("VALUE") || attribute.equalsIgnoreCase("HREF") || attribute.equalsIgnoreCase("PLACEHOLDER")) {
+			currentText = readAttributeOfWebElement(AllProducts.getElementSelector(elementName), attribute.toLowerCase());
+		} else {
+			AssertExecutedStep( "FAIL" + " : " + "The " + attribute + " attribute test of element has not been implemented");
+		}
+
+        if (!text.contains("http")) {
+			text = DataHelp.prepText(text);
+		}
 
         String result = "FAIL";
 
         if (condition.equalsIgnoreCase("EQUAL")) {
-            if (currentText.equalsIgnoreCase(text))
-                result = "PASS";
+            if (currentText.equalsIgnoreCase(text)) {
+				result = "PASS";
+			}
         } else if (condition.equalsIgnoreCase("CONTAIN")) {
-            if (currentText.contains(text))
-                result = "PASS";
-        } else
-            AssertExecutedStep( "FAIL" + " ,,, : " + "The " + condition + " condition test of element has not been implemented");
+            if (currentText.contains(text)) {
+				result = "PASS";
+			}
+        } else {
+			AssertExecutedStep( "FAIL" + " ,,, : " + "The " + condition + " condition test of element has not been implemented");
+		}
 
         AssertExecutedStep( result + " ,,, : " + "The " + currentText + " " + attribute + " should " + condition + " with text " + text + " in the " + elementName);
     }
 
-    public static void elementTextShouldNotBe(String elementName, String attribute, String condition, String text) {      
+    public static void elementTextShouldNotBe(String elementName, String attribute, String condition, String text) {
     	attribute = attribute.toUpperCase();
-        if (text.contains("Text"))
-            DataHelp.getStoredText(text);
+        if (text.contains("Text")) {
+			DataHelp.getStoredText(text);
+		}
         String currentText = "null";
-        
-        VerifyExecutedStep(waitForElementToAppear(elementName));
-        if (attribute.equalsIgnoreCase("TEXT"))
-            currentText = readTextOfWebElement(AllProducts.getElementSelector(elementName));
-        else if (attribute.equalsIgnoreCase("VALUE") || attribute.equalsIgnoreCase("HREF") || attribute.equalsIgnoreCase("PLACEHOLDER"))
-            currentText = readAttributeOfWebElement(AllProducts.getElementSelector(elementName), attribute.toLowerCase());
-        else AssertExecutedStep( "FAIL" + " : " + "The " + attribute + " attribute has not been implemented");
 
-        if (!text.contains("http"))
-            text = DataHelp.prepText(text);
+        VerifyExecutedStep(waitForElementToAppear(elementName));
+        if (attribute.equalsIgnoreCase("TEXT")) {
+			currentText = readTextOfWebElement(AllProducts.getElementSelector(elementName));
+		} else if (attribute.equalsIgnoreCase("VALUE") || attribute.equalsIgnoreCase("HREF") || attribute.equalsIgnoreCase("PLACEHOLDER")) {
+			currentText = readAttributeOfWebElement(AllProducts.getElementSelector(elementName), attribute.toLowerCase());
+		} else {
+			AssertExecutedStep( "FAIL" + " : " + "The " + attribute + " attribute has not been implemented");
+		}
+
+        if (!text.contains("http")) {
+			text = DataHelp.prepText(text);
+		}
 
         String result = "PASS";
 
         if (condition.equalsIgnoreCase("EQUAL")) {
-            if (currentText.equalsIgnoreCase(text))
-                result = "FAIL";
+            if (currentText.equalsIgnoreCase(text)) {
+				result = "FAIL";
+			}
         } else if (condition.equalsIgnoreCase("CONTAIN")) {
-            if (currentText.contains(text))
-                result = "FAIL";
-        } else
-            AssertExecutedStep( "FAIL" + " ,,, : " + "The " + condition + " condition test of element has not been implemented");
+            if (currentText.contains(text)) {
+				result = "FAIL";
+			}
+        } else {
+			AssertExecutedStep( "FAIL" + " ,,, : " + "The " + condition + " condition test of element has not been implemented");
+		}
 
         AssertExecutedStep( result + " ,,, : " + "The " + currentText + " " + attribute + " should " + condition + " with text " + text + " in the " + elementName);
 
@@ -256,13 +283,15 @@ public class WebActs extends WebHelp {
 
     public static void storeElementTextAsTextX(String elementName, String attribute, String textX) {
         String currentText = "null";
-        
+
         VerifyExecutedStep(waitForElementToAppear(elementName));
-        if (attribute.equalsIgnoreCase("TEXT"))
-            currentText = readTextOfWebElement(AllProducts.getElementSelector(elementName));
-        else if (attribute.equalsIgnoreCase("VALUE") || attribute.equalsIgnoreCase("HREF") || attribute.equalsIgnoreCase("PLACEHOLDER"))
-            currentText = readAttributeOfWebElement(AllProducts.getElementSelector(elementName), attribute.toLowerCase());
-        else AssertExecutedStep( "FAIL" + " ,,, : " + "The " + attribute + " attribute has not been implemented");
+        if (attribute.equalsIgnoreCase("TEXT")) {
+			currentText = readTextOfWebElement(AllProducts.getElementSelector(elementName));
+		} else if (attribute.equalsIgnoreCase("VALUE") || attribute.equalsIgnoreCase("HREF") || attribute.equalsIgnoreCase("PLACEHOLDER")) {
+			currentText = readAttributeOfWebElement(AllProducts.getElementSelector(elementName), attribute.toLowerCase());
+		} else {
+			AssertExecutedStep( "FAIL" + " ,,, : " + "The " + attribute + " attribute has not been implemented");
+		}
         AssertExecutedStep( DataHelp.storeText(currentText, textX) + " ,,, : " + "Store the " + attribute + " of the " + elementName + " as " + textX);
     }
 

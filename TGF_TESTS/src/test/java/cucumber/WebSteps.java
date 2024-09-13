@@ -21,7 +21,7 @@ public class WebSteps extends WebActs {
     }
 
     @Given("I navigate to the Home page")
-    public static void INavigateToTheHomePage(){ 
+    public static void INavigateToTheHomePage(){
     	startWebDriver("default");
         navigateToHomePage("app_home");
         onThePage("Home");
@@ -160,9 +160,9 @@ public class WebSteps extends WebActs {
     public static void IStoreTheTextAsTheTextX(String text, String textX) {
         storeTextAsTextX(text, textX);
     }
-    
-    
-  
-    
-    
+
+
+
+
+
 }

@@ -1,30 +1,28 @@
 package cucumber;
 
-import cucumber.WebSteps;
 import data.DataHelp;
 import io.cucumber.java.en.Given;
 import selenium.WebActs;
-import setup.AllProducts;
 
 public class TGFSteps extends WebActs {
-	
+
 	 @Given("I navigate to the SalesForce Home page")
-	    public static void INavigateToTheSalesForceHomePage(){ 
+	    public static void INavigateToTheSalesForceHomePage(){
 	    	startWebDriver("default");
 	        navigateToHomePage("app_home");
 	        onThePage("LogIn");
 	    }
-	
+
 	@Given("I connect with the Admin user")
 	public static void IConnectWithTheAdminUser() {
 		INavigateToTheSalesForceHomePage();
-	    intoTheElement("enter",DataHelp.getTestData("AdminUser") , "user_name");	
-        intoTheElement("enter",DataHelp.getTestData("AdminPass") , "pass_word");	
-        actTheElement("click", "log_in");   
+	    intoTheElement("enter",DataHelp.getTestData("AdminUser") , "user_name");
+        intoTheElement("enter",DataHelp.getTestData("AdminPass") , "pass_word");
+        actTheElement("click", "log_in");
         onThePage("ClassicHome");
 		ISwitchToSalesForceClassic();
 	}
-	
+
 	@Given("I login with the {string} user")
 	public static void ILoginWithTheUser(String user) {
         ISearchForThe(user,"user");
@@ -34,14 +32,15 @@ public class TGFSteps extends WebActs {
         waitSomeSecs("5","log_in");
         ISwitchToSalesForceClassic();
 	}
-	
+
 	@Given("I search for the {string} {string}")
 	public static void ISearchForThe(String searchTerm, String searchType) {
 		intoTheElement("enter",searchTerm, "search_field");
 		actTheElement("click", "search_button");
 		waitSomeSecs("5","search_results");
-		if(searchType.equalsIgnoreCase("user"))
+		if(searchType.equalsIgnoreCase("user")) {
 			actTheElement("click", "search_result_user_1");
+		}
 	}
 
 	@Given("I switch to the {string} app")
@@ -51,7 +50,7 @@ public class TGFSteps extends WebActs {
         actTheElement("click", "app_search_result_1");
         waitSomeSecs("2","search_results");
 	}
-	
+
 	@Given("I switch to SalesForce Classic")
 	public static void ISwitchToSalesForceClassic() {
 		if(getCurrentURL().contains("lightning"))
@@ -60,7 +59,7 @@ public class TGFSteps extends WebActs {
 			waitSomeSecs("5","search_results");
 		}
 	}
-	
+
 	@Given("I switch to SalesForce Lightning")
 	public static void ISwitchToSalesForceLightning() {
 		if(getCurrentURL().contains("my"))
@@ -68,7 +67,7 @@ public class TGFSteps extends WebActs {
 			waitSomeSecs("5","search_results");
 		}
 	}
-	
-	
-	
+
+
+
 }
