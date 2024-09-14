@@ -54,7 +54,7 @@ public class WebHelp {
 
                     ChromeOptions options = new ChromeOptions();
                     options.setExperimentalOption("prefs",chromePrefs);
-                    //options.addArguments("--remote-allow-origins=*");
+                    options.addArguments("--remote-allow-origins=*");
                     options.addArguments("--ssl-version-max=tls1");
                     options.addArguments("--ignore-certificate-errors");
                     options.addArguments("--disable-extensions");
