@@ -1,9 +1,8 @@
 package setup;
 
 
-import static data.DataHelp.getTimeStamp;
-import static selenium.WebActs.stopWebDriver;
-import static selenium.WebHelp.takeScreenShot;
+import data.DataHelp;
+import cucumber.WebSteps;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -77,17 +76,13 @@ public class Hooks {
     {
         if(scenario.isFailed())
         {
-            takeScreenShot(System.getProperty("reportPath") + myScenario + " failed_" + getTimeStamp("YYYY-MM-DD-HH-mm-ss-SSS"));
+            WebSteps.ITakeScreenShot(System.getProperty("reportPath") + myScenario + " failed_" + DataHelp.getTimeStamp("YYYY-MM-DD-HH-mm-ss-SSS"));
             System.out.println("Test Failed !");
         } else {
 			System.out.println("Test Passed !");
 		}
-        closeAllDrivers();
+        WebSteps.IStopTheWebDriver();
         System.out.println("************************************************************************************");
-    }
-
-    public static void closeAllDrivers(){
-        stopWebDriver();
     }
 
     //-----------------------------------------------------------------------------//
@@ -98,13 +93,13 @@ public class Hooks {
         stepLog = result;
         if (!result.toUpperCase().contains("PASS")) {
             Hooks.scenario.log(getResultFailLog(result));
-            takeScreenShot(System.getProperty("reportPath") + "/" + "TestFailScreenshot");
-            //System.out.println(result);
+            WebSteps.ITakeScreenShot("TestFailScreenshot");
+            System.out.println(result);
             Assert.assertTrue(false);
         }
         else {
-            //Hooks.scenario.log(result.replace(",,,",""));
-            //System.out.println(result);
+            Hooks.scenario.log(result.replace(",,,",""));
+            System.out.println(result);
         }
     }
 

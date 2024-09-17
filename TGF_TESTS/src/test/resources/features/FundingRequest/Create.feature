@@ -21,5 +21,6 @@ Feature: FundingRequest
     And I "enter" "$TRPWindow" into the "TRP_Window"
     And I wait "10" secs for the "TRP_Window"
     And I "click" the "Create_New_Funding_Request"
+    And I wait "12" secs for the "Creation"
     And I take a screenshot as "evidence"
     

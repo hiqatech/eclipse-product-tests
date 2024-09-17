@@ -29,7 +29,7 @@ import setup.Hooks;
 public class WebHelp {
 
     public static WebDriver webDriver;
-    public static int waitTimeMax= 10000;
+    public static int waitTimeMax= 12000;
     public static int waitTime = 500;
     public static int timeOut = 60;
 
