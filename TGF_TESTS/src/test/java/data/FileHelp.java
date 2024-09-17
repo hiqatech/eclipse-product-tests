@@ -1,6 +1,6 @@
 package data;
 
-import static data.DataHelp.storedTexts;
+import static data.UtilHelp.storedTexts;
 
 import java.io.File;
 

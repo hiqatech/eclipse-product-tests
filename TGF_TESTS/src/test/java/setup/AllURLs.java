@@ -25,5 +25,30 @@ public class AllURLs {
 			return "Module URL has not been defined";
 		}
     }
+    
+    public static String getServiceURL(String serviceName)
+    {
+        if (serviceName.equalsIgnoreCase("")) {
+        	return "";
+		} else {
+			return "Service URL has not been defined";
+		}
+    }
+    
+    public static String getDBURL(String dbName){
+        if (dbName.equalsIgnoreCase("")) {
+        	return "";
+		} else {
+			return "DataBase URL has not been defined";
+		}
+    }
+    
+    public static String getDBPassw(String dbName){
+        if (dbName.equalsIgnoreCase("")) {
+        	return "";
+		} else {
+			return "DataBase URL has not been defined";
+		}
+    }
 
 }

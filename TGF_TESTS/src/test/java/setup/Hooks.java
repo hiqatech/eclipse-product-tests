@@ -1,7 +1,7 @@
 package setup;
 
 
-import data.DataHelp;
+import data.UtilHelp;
 import cucumber.WebSteps;
 
 import java.io.IOException;
@@ -76,7 +76,7 @@ public class Hooks {
     {
         if(scenario.isFailed())
         {
-            WebSteps.ITakeScreenShot(System.getProperty("reportPath") + myScenario + " failed_" + DataHelp.getTimeStamp("YYYY-MM-DD-HH-mm-ss-SSS"));
+            WebSteps.ITakeScreenShot(System.getProperty("reportPath") + myScenario + " failed_" + UtilHelp.getTimeStamp("YYYY-MM-DD-HH-mm-ss-SSS"));
             System.out.println("Test Failed !");
         } else {
 			System.out.println("Test Passed !");

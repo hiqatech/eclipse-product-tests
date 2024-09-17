@@ -1,4 +1,4 @@
-package pages.SalesForce;
+package pages;
 
 import java.util.HashMap;
 

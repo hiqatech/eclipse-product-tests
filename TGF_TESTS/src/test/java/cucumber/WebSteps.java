@@ -3,7 +3,7 @@ package cucumber;
 import io.cucumber.java.en.Given;
 import static setup.Hooks.AssertExecutedStep;
 import static setup.Hooks.VerifyExecutedStep;
-import data.DataHelp;
+import data.UtilHelp;
 import data.FileHelp;
 import selenium.WebHelp;
 import setup.AllProducts;
@@ -105,7 +105,7 @@ public class WebSteps {
     @Given("I should find the {string} in the downloads")
     public static void ICheckDownloads(String expectedFileName) {
         if (expectedFileName.contains("Text")) {
-			expectedFileName = DataHelp.prepText(expectedFileName);
+			expectedFileName = UtilHelp.prepText(expectedFileName);
 		}
         AssertExecutedStep( FileHelp.checkDownLoad(expectedFileName) + " : " + "I should find the " + expectedFileName + " file ind the " + System.getProperty("downloadPath") + " folder");
     }
@@ -114,7 +114,7 @@ public class WebSteps {
     public static void IUploadTheFile(String fileName, String elementName) {
     	VerifyExecutedStep(waitForElementToAppear(elementName));
         if (fileName.contains("Text")) {
-			fileName = DataHelp.storedTexts.get(Integer.parseInt(fileName.replaceAll("\\D+", "")));
+			fileName = UtilHelp.storedTexts.get(Integer.parseInt(fileName.replaceAll("\\D+", "")));
 		}
         AssertExecutedStep( WebHelp.uploadFile(AllProducts.getElementSelector(elementName), fileName) + " : " + "I upload the " + fileName + " file to the " + elementName);
     }
@@ -124,14 +124,14 @@ public class WebSteps {
     	VerifyExecutedStep(waitForElementToAppear(elementName));
         IActTheElement("select", elementName);
         if (fileName.contains("Text")) {
-			fileName = DataHelp.getStoredText(fileName);
+			fileName = UtilHelp.getStoredText(fileName);
 		}
         AssertExecutedStep( WebHelp.uploadFileWithKey(fileName) + " : " + "I upload the " + fileName + " file to the " + elementName);
     }
 
     @Given("I rename the {string} file to the {string}")
     public static void IRenameFileTo(String fileName, String textX) {
-        String newName = DataHelp.getStoredText(textX);
+        String newName = UtilHelp.getStoredText(textX);
         AssertExecutedStep( FileHelp.renameFile(fileName, newName) + " : " + "I rename the " + fileName + " file to the " + newName);
     }
 
@@ -155,7 +155,7 @@ public class WebSteps {
     @Given("I select the {string} {string} from the {string}")
     public static void ISelectTheElementBy(String text, String attribute, String elementName) {
     	if(text.contains("$")) {
-			text = DataHelp.getTestData(text.replace("$", ""));
+			text = UtilHelp.getTestData(text.replace("$", ""));
 		}
     	VerifyExecutedStep(waitForElementToAppear(elementName));
     	AssertExecutedStep( WebHelp.selectFromDropDownBy(AllProducts.getElementSelector(elementName), attribute, text) + " : " + "I select the " + text + " " + attribute + " from the " + elementName);
@@ -172,7 +172,7 @@ public class WebSteps {
     	VerifyExecutedStep(waitForElementToAppear(elementName));
     	String result = WebHelp.safeAct("select", AllProducts.getElementSelector(elementName)) + " : " + "I select the " + elementName;
 
-        String dateToSet = DataHelp.getDynamicDate(date, "yyyyMMdd");
+        String dateToSet = UtilHelp.getDynamicDate(date, "yyyyMMdd");
         int nth = Integer.parseInt(dateToSet.substring(4, 6));
         String daySelector = AllProducts.getElementSelector("day_selector");
         daySelector.replace("DD", String.valueOf(nth));
@@ -184,14 +184,14 @@ public class WebSteps {
     @Given("I {string} {string} into the {string}")
     public static void IIntoTheElement(String act, String entry, String elementName) {
        	if(entry.contains("$")) {
-    			entry = DataHelp.getTestData(entry.replace("$", ""));
+    			entry = UtilHelp.getTestData(entry.replace("$", ""));
     		}
         	if (entry.contains("CurrentDate")) {
-    			entry = DataHelp.getDynamicDate(entry, "yyyy-MM-dd");
+    			entry = UtilHelp.getDynamicDate(entry, "yyyy-MM-dd");
     		} else if (entry.contains("TimeStamp")) {
-    			entry = DataHelp.getTimeStamp("yyyy-MM-dd-hh-mm-ss");
+    			entry = UtilHelp.getTimeStamp("yyyy-MM-dd-hh-mm-ss");
     		} else if (entry.contains("Text")) {
-    			entry = DataHelp.getStoredText(entry);
+    			entry = UtilHelp.getStoredText(entry);
     		} else if (elementName.contains("date")) {
     			WebHelp.safeAct("select", AllProducts.getElementSelector(elementName));
                 for (int i = 0; i < 10; i++) {
@@ -218,7 +218,7 @@ public class WebSteps {
     public static void TheElementTextShouldBe(String elementName, String attribute, String condition, String text) {
     	attribute = attribute.toUpperCase();
         if (text.contains("Text")) {
-			DataHelp.getStoredText(text);
+			UtilHelp.getStoredText(text);
 		}
         String currentText = "null";
 
@@ -233,7 +233,7 @@ public class WebSteps {
 		}
 
         if (!text.contains("http")) {
-			text = DataHelp.prepText(text);
+			text = UtilHelp.prepText(text);
 		}
 
         String result = "FAIL";
@@ -257,7 +257,7 @@ public class WebSteps {
     public static void TheElementTextShouldNotBe(String elementName, String attribute, String condition, String text) {
     	attribute = attribute.toUpperCase();
         if (text.contains("Text")) {
-			DataHelp.getStoredText(text);
+			UtilHelp.getStoredText(text);
 		}
         String currentText = "null";
 
@@ -271,7 +271,7 @@ public class WebSteps {
 		}
 
         if (!text.contains("http")) {
-			text = DataHelp.prepText(text);
+			text = UtilHelp.prepText(text);
 		}
 
         String result = "PASS";
@@ -318,12 +318,12 @@ public class WebSteps {
  		} else {
  			AssertExecutedStep( "FAIL" + " : " + "The " + attribute + " attribute has not been implemented");
  		}
-         AssertExecutedStep( DataHelp.storeText(currentText, textX) + " : " + "Store the " + attribute + " of the " + elementName + " as " + textX);
+         AssertExecutedStep( UtilHelp.storeText(currentText, textX) + " : " + "Store the " + attribute + " of the " + elementName + " as " + textX);
      }
 
      public static void storeTextAsTextX(String text, String textX) {
-         text = DataHelp.prepText(text);
-         AssertExecutedStep( DataHelp.storeText(text, textX) + " : " + "Store the " + text + " as " + textX);
+         text = UtilHelp.prepText(text);
+         AssertExecutedStep( UtilHelp.storeText(text, textX) + " : " + "Store the " + text + " as " + textX);
      }
 
     public static void IStoreTheTextAsTheTextX(String text, String textX) {

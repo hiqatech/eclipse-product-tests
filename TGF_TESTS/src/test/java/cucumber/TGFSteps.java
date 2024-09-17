@@ -1,6 +1,6 @@
 package cucumber;
 
-import data.DataHelp;
+import data.UtilHelp;
 import io.cucumber.java.en.Given;
 import selenium.WebHelp;
 import cucumber.WebSteps;
@@ -16,8 +16,8 @@ public class TGFSteps {
 	@Given("I connect with the Admin user")
 	public static void IConnectWithTheAdminUser() {
 		INavigateToTheSalesForceHomePage();
-		WebSteps.IIntoTheElement("enter",DataHelp.getTestData("AdminUser") , "user_name");
-		WebSteps.IIntoTheElement("enter",DataHelp.getTestData("AdminPass") , "pass_word");
+		WebSteps.IIntoTheElement("enter",UtilHelp.getTestData("AdminUser") , "user_name");
+		WebSteps.IIntoTheElement("enter",UtilHelp.getTestData("AdminPass") , "pass_word");
 		WebSteps.IActTheElement("click", "log_in");
 		WebSteps.IAmOnThePage("ClassicHome");
 		ISwitchToSalesForceClassic();

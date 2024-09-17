@@ -1,21 +1,15 @@
 package cucumber;
+import setup.AllProducts;
+import data.DataHelp;
+import io.cucumber.java.en.Given;
 
 import static setup.Hooks.AssertExecutedStep;
 
-import data.DataHelp;
-import data.FileHelp;
-import io.cucumber.java.en.Given;
+public class DataSteps {
 
-public class DataSteps{
-
-	 @Given("I read the {string} test {string} data")
-	    public static void IReadTheTestData(String feature, String testId) {
-		 if(testId.contains("TC0")) {
-				testId = testId.replace("TC0","");
-			} else if(testId.contains("TC")) {
-					testId = testId.replace("TC","");
-				}
-			AssertExecutedStep(DataHelp.readTestData(feature,System.getProperty("runEnvironment"),testId) + " : " + "I read the " + feature + " test " + testId + " data \n");
-	    }
-
+	@Given("I send the {string} query to get the {string} data")
+    public static void IReadTheTestData(String query, String data) {
+		AssertExecutedStep(DataHelp.selectSQLQuery(AllProducts.getDBURL(""),AllProducts.getDBPassw(""),query,data) 
+				+ " : " + "I send the " + query + " query to get the " + data + " data \n");
+    }
 }
